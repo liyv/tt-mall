@@ -7,4 +7,13 @@
         select * from tb_item
         where id=#{itemId}
     </select>
+
+    <select id="listItem" resultType="TaoItem">
+        select *
+        from tb_item limit #{start},#{size}
+    </select>
+
+    <select id="countItem" resultType="int">
+        select count(*) from  tb_item
+    </select>
 </mapper>
