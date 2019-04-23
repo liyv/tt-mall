@@ -19,6 +19,7 @@
             },
             columns:[[
                 {field:'id',title:'Code',width:100,hidden:true},
+                {field:'',title:'全选',align:'center',checkbox:true},
                 {field:'title',title:'商品名称',width:100,align:'center'},
                 {field:'sellPoint',title:'销售点',width:100,align:'center'},
                 {field:'price',title:'价格',width:100,align:'center'},
@@ -32,7 +33,28 @@
             ]],
             pagination:true,
             fitColumns:true,
-            singleSelect:true
+            toolbar: [{
+                iconCls: 'icon-add',
+                text:'新增',
+                handler: function(){alert('edit')}
+            },'-',{
+                iconCls: 'icon-edit',
+                text:'编辑',
+                handler: function(){alert('help')}
+            },'-',{
+                iconCls: 'icon-cancel',
+                text:'删除',
+                handler: function(){alert('help')}
+            },'-',{
+                iconCls: 'icon-redo',
+                text:'下架',
+                handler: function(){alert('help')}
+            },'-',{
+                iconCls: 'icon-undo',
+                text:'上架',
+                handler: function(){alert('help')}
+            }],
+            rownumbers:true
         });
     });
 </script>

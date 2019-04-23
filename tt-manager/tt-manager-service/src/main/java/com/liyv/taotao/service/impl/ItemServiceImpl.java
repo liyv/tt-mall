@@ -1,7 +1,7 @@
 package com.liyv.taotao.service.impl;
 
 import com.liyv.taotao.entity.TaoItem;
-import com.liyv.taotao.entity.dto.ItemListDTO;
+import com.liyv.taotao.dto.ItemListDTO;
 import com.liyv.taotao.mapper.TaoItemMapper;
 import com.liyv.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;

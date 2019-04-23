@@ -40,6 +40,15 @@
 <!-- easyui js 以"/"开头的成为全路径-->
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/resources/lib/easyui/jquery.easyui.min.js"></script>
+<%--引入 commons.js--%>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/resources/script/common.js"></script>
+
+
+<script type="text/javascript" charset="UTF-8"
+        src="${pageContext.request.contextPath}/resources/lib/kindeditor/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="UTF-8"
+        src="${pageContext.request.contextPath}/resources/lib/kindeditor/lang/zh-CN.js"></script>
 
 <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
@@ -49,6 +58,7 @@
         var menuData = null;
         $('#left_menu_tree').tree({
             url: 'backend/menuList',
+            method:'get',
             loadFilter: function (res) {
                 if (res.success) {
                     menuData = res.data;

@@ -16,4 +16,5 @@
     <select id="countItem" resultType="int">
         select count(*) from  tb_item
     </select>
+
 </mapper>

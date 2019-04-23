@@ -1,7 +1,7 @@
 package com.liyv.taotao.web.backend;
 
 import com.liyv.taotao.entity.TaoMenuEntity;
-import com.liyv.taotao.entity.dto.Result;
+import com.liyv.taotao.dto.Result;
 import com.liyv.taotao.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

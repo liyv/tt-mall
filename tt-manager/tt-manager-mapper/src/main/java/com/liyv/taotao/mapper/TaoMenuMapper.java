@@ -12,10 +12,4 @@ public interface TaoMenuMapper {
      */
     List<TaoMenuEntity> listMenu();
 
-    /**
-     * 选取
-     * @param pid
-     * @return
-     */
-    List<TaoMenuEntity> listSubMenu(int pid);
 }

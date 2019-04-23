@@ -1,7 +1,7 @@
 package com.liyv.taotao.service;
 
 import com.liyv.taotao.entity.TaoItem;
-import com.liyv.taotao.entity.dto.ItemListDTO;
+import com.liyv.taotao.dto.ItemListDTO;
 
 public interface ItemService {
 
