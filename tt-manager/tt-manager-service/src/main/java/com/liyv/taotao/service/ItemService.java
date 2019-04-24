@@ -8,4 +8,6 @@ public interface ItemService {
     TaoItem getItemById(long itemId);
 
     ItemListDTO listGoods(int page,int rows);
+
+    int insertItem(TaoItem item);
 }

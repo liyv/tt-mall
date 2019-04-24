@@ -12,4 +12,6 @@ public interface TaoItemMapper {
     List<TaoItem> listItem(@Param("start") int start,@Param("size") int row);
 
     int countItem();
+
+    int insertItem(TaoItem item);
 }

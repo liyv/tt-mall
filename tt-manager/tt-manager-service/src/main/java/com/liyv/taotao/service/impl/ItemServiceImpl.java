@@ -26,4 +26,9 @@ public class ItemServiceImpl implements ItemService {
         dto.setTotal(taoItemMapper.countItem());
         return dto;
     }
+
+    @Override
+    public int insertItem(TaoItem item) {
+        return taoItemMapper.insertItem(item);
+    }
 }

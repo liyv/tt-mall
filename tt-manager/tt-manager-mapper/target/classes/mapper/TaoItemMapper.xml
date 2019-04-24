@@ -17,4 +17,9 @@
         select count(*) from  tb_item
     </select>
 
+    <insert id="insertItem" parameterType="TaoItem" >
+        insert into tb_item (id,title,sell_point,price,num,barcode,image,cid,status,created,updated)
+        values (#{id},#{title},#{sellPoint},#{price},#{num},#{barcode},#{image},#{cid},#{status},now(),now())
+    </insert>
+
 </mapper>

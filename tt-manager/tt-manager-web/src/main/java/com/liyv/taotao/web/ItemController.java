@@ -42,4 +42,18 @@ public class ItemController {
         List<TaoItemCatEntity> list = catService.listCategory();
         return new Result<>(true, list);
     }
+
+    @PostMapping("/saveItem")
+    @ResponseBody
+    public Result saveItem(TaoItem item) {
+        item.setId(System.currentTimeMillis());
+        int row = itemService.insertItem(item);
+        Result result;
+        if (row > 0) {
+            result = new Result(true, "success");
+        } else {
+            result = new Result(false, "新增数据失败");
+        }
+        return result;
+    }
 }

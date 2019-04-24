@@ -8,7 +8,7 @@
 <body class="easyui-layout">
 
 <div style="padding: 10px 10px">
-    <form id="ff" method="post">
+    <form id="itemAddForm" method="post">
         <table cellpadding=5">
             <tr>
                 <td>
@@ -63,8 +63,8 @@
             <tr >
                 <td></td>
                 <td>
-                    <a href="javascript:void(0)" class="easyui-linkbutton submit">提交</a>
-                    <a href="javascript:void(0)" class="easyui-linkbutton reset">重置</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton " onclick="submitForm()">提交</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton ">重置</a>
                 </td>
             </tr>
         </table>
@@ -80,6 +80,28 @@
         itemAddEditor =TT.createEditor();
         TT.initPictureUpload();
     })
+
+    //提交表单
+    function submitForm() {
+        //有效性验证
+        if (!$('#itemAddForm').form('validate')) {
+            $.messager.alert('提示', '表单还未填写完成!');
+            return;
+        }
+        //取商品价格,单位为"分",相当于扩大100倍
+        var originPrice = $("#itemAddForm [name=priceView]").val();
+        $("#itemAddForm [name=price]").val(originPrice * 100);
+        //同步文本框中的商品描述
+        itemAddEditor.sync();
+        //取商品的规格 TODO
+        // var paramJson=[];
+        // $("#itemAddForm .params li")
+
+        //ajax 的post 方式提交表单
+        $.post("/item/saveItem",$('#itemAddForm').serialize(),function (data) {
+            console.log(data);
+        });
+    }
 </script>
 </body>
 
