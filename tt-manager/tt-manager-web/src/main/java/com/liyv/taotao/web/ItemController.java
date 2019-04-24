@@ -1,9 +1,9 @@
 package com.liyv.taotao.web;
 
-import com.liyv.taotao.entity.TaoItem;
 import com.liyv.taotao.dto.ItemListDTO;
 import com.liyv.taotao.dto.Result;
-import com.liyv.taotao.entity.TaoItemCatEntity;
+import com.liyv.taotao.dto.TaoItemCatDTO;
+import com.liyv.taotao.entity.TaoItem;
 import com.liyv.taotao.service.ItemService;
 import com.liyv.taotao.service.TaoItemCatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +36,10 @@ public class ItemController {
         return result;
     }
 
-    @GetMapping("/listCategory")
+    @GetMapping("/listCategoryByPid")
     @ResponseBody
-    public Result listItemCategory() {
-        List<TaoItemCatEntity> list = catService.listCategory();
+    public Result listItemCategoryByPid(@RequestParam(value = "id", defaultValue = "0") long pid) {
+        List<TaoItemCatDTO> list = catService.listCategoryByPid(pid);
         return new Result<>(true, list);
     }
 

@@ -1,6 +1,6 @@
 package com.liyv.taotao.mapper;
 
-import com.liyv.taotao.entity.TaoItemCatEntity;
+import com.liyv.taotao.dto.TaoItemCatDTO;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface TaoItemCatMapper {
      *
      * @return
      */
-    public List<TaoItemCatEntity> listGoodsCategory();
+    public List<TaoItemCatDTO> listGoodsCategoryByPid(long pid);
 
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MenuController {
 
 
-    //角色管理
+    //
     @GetMapping("/{pageUrl}")
     public String menuItemRole(@PathVariable String pageUrl) {
         return "backend/" + pageUrl;

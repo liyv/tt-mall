@@ -18,10 +18,9 @@ var TT = {
                     onOpen: function () {
                         var _win = this;
                         $("ul", _win).tree({
-                            url: '/item/listCategory',
+                            url: '/item/listCategoryByPid',
                             method: 'get',
                             animate: true,
-
                             loadFilter: function (res) {
                                 if (res.success) {
                                     return res.data;
