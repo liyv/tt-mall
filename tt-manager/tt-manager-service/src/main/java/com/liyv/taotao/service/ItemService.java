@@ -9,5 +9,5 @@ public interface ItemService {
 
     ItemListDTO listGoods(int page,int rows);
 
-    int insertItem(TaoItem item);
+    int insertItem(TaoItem item,String itemParams);
 }

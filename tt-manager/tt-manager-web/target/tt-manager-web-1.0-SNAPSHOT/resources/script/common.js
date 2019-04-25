@@ -1,11 +1,16 @@
 var TT = {
+
+    init: function (data) {
+        this.initPictureUpload(data);
+        this.initItemCategory(data);
+    },
     //初始化选择类目组件
     initItemCategory: function (data) {
         //添加点击事件
         var selectItemCatObj = $(".selectItemCat");
         if (data && data.cid) {
             selectItemCatObj.after("<span style='margin-left: 10px'>" + data.cid + "</span>");
-        }else {
+        } else {
             selectItemCatObj.after("<span style='margin-left: 10px'></span>");
         }
         selectItemCatObj.unbind('click').click(function () {
@@ -40,7 +45,7 @@ var TT = {
                                     _ele.parent().find("[name=cid]").val(node.id).next().text(node.text);
                                     // _ele.parent().find('span').text(node.text);//后面的作用是什么
                                     $(_win).window('close');
-                                    if (data && data.fun){
+                                    if (data && data.fun) {
                                         data.fun.call(this, node);
                                     }
                                 }
@@ -86,6 +91,35 @@ var TT = {
                     }
                 })
             })
+        });
+    },
+    //展示规格参数模板
+    showItemParam: function (node, formId) {
+        $.getJSON("/item/param/query/itemcatid/" + node.id, function (res) {
+            //查询类目对应的模板json
+            if (res.success && res.data) {
+                $("#" + formId + " .params").show();
+                var paramData = JSON.parse(res.data.paramData);
+                var html = "<ul>";
+                for (var i in paramData) {
+                    var groupItem = paramData[i];
+                    html += "<li><table>";
+                    html += "<tr><td colspan='2' class='group'>" + groupItem.group + "</td>";
+
+                    //项
+                    for (var j in groupItem.params) {
+                        var paramItem = groupItem.params[j];
+                        html += "<tr><td class='param'><span>" + paramItem + "</span>: </td>";
+                        html += "<td><input class='easyui-textbox' autocomplete='off' type='text'></td></tr>";
+                    }
+                    html += "</li></table>";
+                }
+                html += "</ul";
+                $("#" + formId + " .params").eq(1).children("td").eq(1).html(html);
+            } else {
+                $("#" + formId + " .params").hide();
+                $("#" + formId + " .params").eq(1).children("td").eq(1).empty();
+            }
         });
     }
 };

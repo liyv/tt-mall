@@ -41,7 +41,7 @@ public class ItemControllerTest extends BaseTest {
     public void addItem() {
         TaoItem item = new TaoItem();
         item.setId(System.currentTimeMillis());
-        item.setTitle("测试");
+        item.setTitle("测试2");
         item.setSellPoint("满100-50");
         item.setPrice(5000);
         item.setNum(1000);
@@ -50,7 +50,7 @@ public class ItemControllerTest extends BaseTest {
         item.setCid(57);
         short status = 1;
         item.setStatus(status);
-        int row = itemService.insertItem(item);
+        int row = itemService.insertItem(item,"123456");
         System.out.println("====================");
         System.out.println(row);
     }

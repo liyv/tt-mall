@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyv.taotao.mapper.TaoItemParamItemMapper">
+
+    <insert id="saveParamItem" parameterType="TaoItemParamItemEntity">
+        insert into tb_item_param_item (item_id,param_data,created,updated)
+        values (#{itemId},#{paramData},now(),now())
+    </insert>
+</mapper>

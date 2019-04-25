@@ -50,9 +50,9 @@ public class ItemController {
 
     @PostMapping("/saveItem")
     @ResponseBody
-    public Result saveItem(TaoItem item) {
+    public Result saveItem(TaoItem item, String itemParams) {
         item.setId(System.currentTimeMillis());
-        int row = itemService.insertItem(item);
+        int row = itemService.insertItem(item, itemParams);
         Result result;
         if (row > 0) {
             result = new Result(true, "success");
