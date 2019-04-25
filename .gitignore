@@ -17,6 +17,7 @@ HELP.md
 *.iml
 *.ipr
 out/
+tt-manager/tt-manager-web/target/
 
 ### NetBeans ###
 /nbproject/private/

@@ -14,4 +14,15 @@
         values (#{itemCatId},#{paramData},now(),now())
     </insert>
 
+    <!--取出列表数据-->
+    <select id="listItemCategoryParam" resultType="com.liyv.taotao.dto.TaoItemParamDTO">
+        select tp.id,tc.name as categoryName,tp.param_data,DATE_FORMAT(tp.created,'%Y-%m-%d %H:%i:%S') as createDate,
+        DATE_FORMAT(tp.updated,'%Y-%m-%d %H:%i:%S') as updateDate
+        from tb_item_param tp left join tb_item_cat tc on tp.item_cat_id=tc.id
+        limit #{start},#{size}
+    </select>
+
+    <select id="countItemCategoryParam" resultType="int">
+        select count(*) from tb_item_param
+    </select>
 </mapper>

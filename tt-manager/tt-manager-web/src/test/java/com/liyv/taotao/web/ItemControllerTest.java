@@ -1,6 +1,9 @@
 package com.liyv.taotao.web;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liyv.taotao.dto.EUDataGridDTO;
 import com.liyv.taotao.dto.ItemListDTO;
 import com.liyv.taotao.entity.TaoItem;
 import com.liyv.taotao.entity.TaoItemParamEntity;
@@ -10,6 +13,7 @@ import com.liyv.taotao.service.ItemService;
 import com.liyv.taotao.service.TaoItemCatService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
 
 public class ItemControllerTest extends BaseTest {
 
@@ -58,5 +62,20 @@ public class ItemControllerTest extends BaseTest {
     public void selectParamTest() {
         TaoItemParamEntity entity = paramService.selectByCatId(560);
         System.out.println(entity);
+    }
+
+    /**
+     * 规格参数列表数据
+     */
+    @Test
+    public void listItemParam() {
+        EUDataGridDTO dto = paramService.listItemParm(1, 1);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String str = objectMapper.writeValueAsString(dto);
+            System.out.println(str);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }

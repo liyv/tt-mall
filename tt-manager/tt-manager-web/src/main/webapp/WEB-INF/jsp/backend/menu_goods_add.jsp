@@ -79,7 +79,7 @@
         //富文本编辑器
         itemAddEditor =TT.createEditor();
         TT.initPictureUpload();
-    })
+    });
 
     //提交表单
     function submitForm() {

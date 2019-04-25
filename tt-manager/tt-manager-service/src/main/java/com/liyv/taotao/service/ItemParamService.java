@@ -1,5 +1,6 @@
 package com.liyv.taotao.service;
 
+import com.liyv.taotao.dto.EUDataGridDTO;
 import com.liyv.taotao.entity.TaoItemParamEntity;
 
 public interface ItemParamService {
@@ -18,4 +19,12 @@ public interface ItemParamService {
      * @return
      */
     public int saveItemParam(TaoItemParamEntity entity);
+
+    /**
+     * 获取规格参数列表数据
+     * @param page
+     * @param rows
+     * @return
+     */
+    public EUDataGridDTO listItemParm(int page,int rows);
 }

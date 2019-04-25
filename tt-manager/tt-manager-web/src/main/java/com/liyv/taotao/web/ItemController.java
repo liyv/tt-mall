@@ -1,5 +1,6 @@
 package com.liyv.taotao.web;
 
+import com.liyv.taotao.dto.EUDataGridDTO;
 import com.liyv.taotao.dto.ItemListDTO;
 import com.liyv.taotao.dto.Result;
 import com.liyv.taotao.dto.TaoItemCatDTO;
@@ -77,6 +78,13 @@ public class ItemController {
         return result;
     }
 
+    /**
+     * 保存类目的规格参数数据
+     *
+     * @param catId
+     * @param paramData
+     * @return
+     */
     @PostMapping("/param/save/{catId}")
     @ResponseBody
     public Result saveItemParam(@PathVariable long catId, @RequestParam("paramData") String paramData) {
@@ -92,4 +100,19 @@ public class ItemController {
         }
         return result;
     }
+
+    /**
+     * 类目规格参数列表数据
+     *
+     * @param page
+     * @param rows
+     * @return
+     */
+    @GetMapping("/param/list")
+    @ResponseBody
+    public Result<EUDataGridDTO> listItemParam(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int rows) {
+        EUDataGridDTO dto = paramService.listItemParm(page, rows);
+        return new Result<>(true, dto);
+    }
+
 }
