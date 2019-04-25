@@ -4,6 +4,8 @@ import com.liyv.taotao.dto.ItemListDTO;
 import com.liyv.taotao.dto.Result;
 import com.liyv.taotao.dto.TaoItemCatDTO;
 import com.liyv.taotao.entity.TaoItem;
+import com.liyv.taotao.entity.TaoItemParamEntity;
+import com.liyv.taotao.service.ItemParamService;
 import com.liyv.taotao.service.ItemService;
 import com.liyv.taotao.service.TaoItemCatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class ItemController {
 
     @Autowired
     private TaoItemCatService catService;
+    @Autowired
+    private ItemParamService paramService;
 
     @RequestMapping("/{itemId}")
     @ResponseBody
@@ -53,6 +57,38 @@ public class ItemController {
             result = new Result(true, "success");
         } else {
             result = new Result(false, "新增数据失败");
+        }
+        return result;
+    }
+
+    /**
+     * 根据类别id 查找模板数据
+     */
+    @GetMapping("/param/query/itemcatid/{catId}")
+    @ResponseBody
+    public Result selectParamByCat(@PathVariable long catId) {
+        TaoItemParamEntity entity = paramService.selectByCatId(catId);
+        Result result;
+        if (null != entity) {
+            result = new Result<>(true, entity);
+        } else {
+            result = new Result<>(true, "");
+        }
+        return result;
+    }
+
+    @PostMapping("/param/save/{catId}")
+    @ResponseBody
+    public Result saveItemParam(@PathVariable long catId, @RequestParam("paramData") String paramData) {
+        TaoItemParamEntity entity = new TaoItemParamEntity();
+        entity.setItemCatId(catId);
+        entity.setParamData(paramData);
+        int row = paramService.saveItemParam(entity);
+        Result result;
+        if (row > 0) {
+            result = new Result(true, entity);
+        } else {
+            result = new Result(false, "保存数据失败");
         }
         return result;
     }

@@ -4,6 +4,44 @@
 <head>
     <title>淘淘商城后台管理</title>
     <%@include file="/WEB-INF/jsp/common/head.jsp" %>
+    <style>
+        ul {
+            list-style: none
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .itemParam ul {
+            padding-left: 0px;
+        }
+
+        .itemParam li {
+            line-height: 25px;
+        }
+
+        .itemForm .pics ul {
+            list-style: none;
+        }
+
+        .itemForm .pics ul li {
+            float: left;
+            padding-right: 5px;
+        }
+
+        .itemForm .group {
+            font-weight: bold;
+            text-align: center;
+            background-color: #eaeaea;
+        }
+
+        .itemForm .param {
+            width: 80px;
+            text-align: right;
+        }
+
+    </style>
 </head>
 <body class="easyui-layout">
 
@@ -58,7 +96,7 @@
         var menuData = null;
         $('#left_menu_tree').tree({
             url: 'backend/menuList',
-            method:'get',
+            method: 'get',
             loadFilter: function (res) {
                 if (res.success) {
                     menuData = res.data;

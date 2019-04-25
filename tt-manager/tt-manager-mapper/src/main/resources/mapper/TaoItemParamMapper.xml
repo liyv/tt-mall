@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyv.taotao.mapper.TaoItemParamMapper">
+
+    <select id="selectByCatId" resultType="TaoItemParamEntity">
+        select id,item_cat_id,param_data
+        from tb_item_param where item_cat_id=#{catId}
+    </select>
+
+    <insert id="saveItemParam" parameterType="TaoItemParamEntity">
+        insert into tb_item_param (item_cat_id,param_data,created,updated)
+        values (#{itemCatId},#{paramData},now(),now())
+    </insert>
+
+</mapper>

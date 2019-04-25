@@ -8,7 +8,7 @@
 <body class="easyui-layout">
 
 <div style="padding: 10px 10px">
-    <form id="itemAddForm" method="post">
+    <form id="itemAddForm" class="itemForm" method="post">
         <table cellpadding=5">
             <tr>
                 <td>
@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td>商品卖点:</td>
-                <td><input class="easyui-textbox" name="sellPoint" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
+                <td><input class="easyui-textbox" name="sellPoint" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"/></td>
             </tr>
             <tr>
                 <td>商品价格:</td>

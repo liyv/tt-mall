@@ -1,8 +1,14 @@
 var TT = {
     //初始化选择类目组件
-    initItemCategory: function () {
+    initItemCategory: function (data) {
         //添加点击事件
-        $(".selectItemCat").unbind('click').click(function () {
+        var selectItemCatObj = $(".selectItemCat");
+        if (data && data.cid) {
+            selectItemCatObj.after("<span style='margin-left: 10px'>" + data.cid + "</span>");
+        }else {
+            selectItemCatObj.after("<span style='margin-left: 10px'></span>");
+        }
+        selectItemCatObj.unbind('click').click(function () {
             var _ele = $(this);
             //使用jQuery创建window ,并弹出
             $("<div>").css({padding: "5px"}).html("<ul>")
@@ -34,12 +40,14 @@ var TT = {
                                     _ele.parent().find("[name=cid]").val(node.id).next().text(node.text);
                                     // _ele.parent().find('span').text(node.text);//后面的作用是什么
                                     $(_win).window('close');
+                                    if (data && data.fun){
+                                        data.fun.call(this, node);
+                                    }
                                 }
                             }
                         });
                     },
                     onClose: function () {
-                        console.log(111);
                     }
                 }).window('open');
         });
@@ -62,16 +70,16 @@ var TT = {
         //todo
         //给 上传按钮绑定 click 事件
         element.click(function () {
-           var form = $(this).parentsUntil("form").parent('form');
-           //打开图片上传窗口
-            KindEditor.editor(TT.kindEditorParams).loadPlugin('multiimage',function () {
-                var editor=this;
+            var form = $(this).parentsUntil("form").parent('form');
+            //打开图片上传窗口
+            KindEditor.editor(TT.kindEditorParams).loadPlugin('multiimage', function () {
+                var editor = this;
                 editor.plugin.multiImageDialog({
-                    clickFn:function (urlList) {
-                        var imgArray=[];
-                        KindEditor.each(urlList,function (i,data) {
+                    clickFn: function (urlList) {
+                        var imgArray = [];
+                        KindEditor.each(urlList, function (i, data) {
                             imgArray.push(data.url);
-                            form.find(".pics ul").append("<li><a href='"+data.url+"'target='_blank'><img src='"+data.url+"'width='80' height='50'/></a></li>");
+                            form.find(".pics ul").append("<li><a href='" + data.url + "'target='_blank'><img src='" + data.url + "'width='80' height='50'/></a></li>");
                         });
                         form.find("[name=image]").val(imgArray.join(","));
                         editor.hideDialog();
