@@ -18,6 +18,9 @@ HELP.md
 *.ipr
 out/
 tt-manager/tt-manager-web/target/
+tt-portal/target
+tt-rest/target
+tt-manager/tt-manager-mapper/target
 
 ### NetBeans ###
 /nbproject/private/

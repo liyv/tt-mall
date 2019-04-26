@@ -4,22 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.liyv.taotao.mapper.TaoItemCatMapper">
 
-   <!-- <resultMap id="listCategroyRM" type="TaoItemCatEntity">
+    <resultMap id="listCategroyRM" type="com.liyv.rest.pojo.CatNode">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
-        <collection property="children" column="id" ofType="TaoItemCatEntity"
-                    select="listCategoryByPid">
+        <result property="url" column="url"/>
+        <result property="parentId" column="parentId"/>
+        <collection property="item" column="parentId" notNullColumn="parentId" ofType="com.liyv.rest.pojo.CatNode"
+                    select="listCatListByPid">
         </collection>
     </resultMap>
 
-    <select id="listGoodsCategory" resultMap="listCategroyRM">
-        select id,name from tb_item_cat where parent_id='0';
-    </select>-->
+     <select id="listCatList" resultMap="listCategroyRM">
+        select id,name,case
+          when is_parent=1 then CONCAT("/products/",id,".html")
+          when is_parent=0 then concat("/products/",id,".html|",name)
+          end as url,
+          case
+            when is_parent=0 then null
+            when is_parent=1 then id
+            end as parentId
+          from tb_item_cat where parent_id='0';
+    </select>
+    <select id="listCatListByPid" resultMap="listCategroyRM">
+        select id,name,case
+          when is_parent=1 then CONCAT("/products/",id,".html")
+          when is_parent=0 then concat("/products/",id,".html|",name)
+          end as url,
+          case
+            when is_parent=0 then null
+            when is_parent=1 then id
+            end as parentId
+          from tb_item_cat where parent_id=#{parentId};
+    </select>
 
     <select id="listGoodsCategoryByPid" resultType="com.liyv.taotao.dto.TaoItemCatDTO">
         select id,name as text, case when  is_parent =0 then null else "closed" end as state
         from tb_item_cat where parent_id = #{pid};
     </select>
+
 
 
 </mapper>
