@@ -1,4 +1,4 @@
-package com.liyv.rest.pojo;
+package com.liyv.taotao.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

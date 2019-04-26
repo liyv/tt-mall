@@ -1,6 +1,6 @@
 package com.liyv.rest.service.impl;
 
-import com.liyv.rest.pojo.CatNode;
+import com.liyv.taotao.dto.CatNode;
 import com.liyv.rest.pojo.CatResult;
 import com.liyv.rest.service.ItemCatService;
 import com.liyv.taotao.mapper.TaoItemCatMapper;

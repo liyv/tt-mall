@@ -21,6 +21,8 @@ tt-manager/tt-manager-web/target/
 tt-portal/target
 tt-rest/target
 tt-manager/tt-manager-mapper/target
+tt-manager/tt-manager-service/target
+tt-common/target
 
 ### NetBeans ###
 /nbproject/private/
