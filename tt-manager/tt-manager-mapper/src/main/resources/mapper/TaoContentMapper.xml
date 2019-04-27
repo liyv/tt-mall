@@ -16,4 +16,44 @@
         from tb_content
         where category_id=#{categoryId}
     </select>
+
+    <insert id="insertContent">
+        insert into tb_content (category_id,title,sub_title,title_desc,url,pic,pic2,content,created,updated)
+        values (#{categoryId},#{title},#{subTitle},#{titleDesc},#{url},#{pic},#{pic2},#{content}
+        ,#{created},#{updated})
+    </insert>
+
+    <update id="updateContent" parameterType="ContentEntity">
+        update tb_content
+        set updated=now()
+        <if test="null !=title and title !=''">
+           ,title=#{title}
+        </if>
+        <if test="null !=subTitle and subTitle !=''">
+           , sub_title=#{subTitle}
+        </if>
+        <if test="null !=titleDesc and titleDesc !=''">
+           , title_desc=#{titleDesc}
+        </if>
+        <if test="null !=url">
+           , url=#{url}
+        </if>
+        <if test="null !=pic">
+           , pic=#{pic}
+        </if>
+        <if test="null !=pic2">
+           , pic2=#{pic2}
+        </if>
+        <if test="null !=content">
+           , content=#{content}
+        </if>
+        where id = #{id}
+    </update>
+    <delete id="deleteContent">
+        delete from tb_content
+        where id in
+        <foreach collection="list" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

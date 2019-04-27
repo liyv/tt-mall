@@ -25,4 +25,18 @@ public class TaoContentServiceImpl implements TaoContentService {
         return dto;
     }
 
+    @Override
+    public int saveContent(ContentEntity entity) {
+        return contentMapper.insertContent(entity);
+    }
+
+    @Override
+    public int updateContent(ContentEntity entity) {
+        return contentMapper.updateContent(entity);
+    }
+
+    @Override
+    public int deleteContent(List<Long> ids) {
+        return contentMapper.deleteContent(ids);
+    }
 }

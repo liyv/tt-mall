@@ -21,7 +21,7 @@ var TT = {
                     width: '500',
                     height: "450",
                     modal: true,
-                    closed: true,
+                    closable: true,
                     minimizable: false,
                     maximizable: false,
                     iconCls: 'icon-save',
@@ -63,8 +63,8 @@ var TT = {
         dir: "image"//上传类型
     },
     //初始化富文本编辑器
-    createEditor: function () {
-        return KindEditor.create("#desc", TT.kindEditorParams);
+    createEditor: function (select) {
+        return KindEditor.create(select, TT.kindEditorParams);
     },
     //初始化图片上传组件
     initPictureUpload: function () {
@@ -128,10 +128,62 @@ var TT = {
         return date.toLocaleDateString("zh-CN");
     },
     //格式化链接
-    formatUrl:function (val,rowData,rowIndex) {
-        if (val){
-            return "<a href='"+val+"' target='_blank'>查看</a>";
+    formatUrl: function (val, rowData, rowIndex) {
+        if (val) {
+            return "<a href='" + val + "' target='_blank'>查看</a>";
         }
         return "";
+    },
+    createWindow: function (params) {
+        $("<div>").css({padding: "5px"}).html("<ul>")
+            .window({
+                width: params.width ? params.width : "80%",
+                height: params.height ? params.height : "80%",
+                modal: true,
+                closable:true,
+                minimizable: false,
+                maximizable: false,
+                iconCls: 'icon-save',
+                title: params.title ? params.title : "新增",
+                href: params.url,
+                onClose: function () {
+                    $(this).window('destroy');
+                },
+                onLoad: function () {
+                    if (params.onLoad) {
+                        params.onLoad.call(this);
+                    }
+                }
+            }).window('open');
+        /* $("<div>").window({
+             width: 600,
+             height: 400,
+             modal: true
+         }).window('open');*/
+    },
+    /**
+     * 初始化单图片上传组件 <br/>
+     * 选择器为：.onePicUpload <br/>
+     * 上传完成后会设置input内容以及在input后面追加<img>
+     */
+    initOnePicUpload : function(){
+        $(".onePicUpload").click(function(){
+            var _self = $(this);
+            KindEditor.editor(TT.kindEditorParams).loadPlugin('image', function() {
+                this.plugin.imageDialog({
+                    showRemote : false,
+                    clickFn : function(url, title, width, height, border, align) {
+                        var input = _self.siblings("input");
+                        input.parent().find("img").remove();
+                        input.val(url);
+                        input.after("<a href='"+url+"' target='_blank'><img src='"+url+"' width='80' height='50'/></a>");
+                        this.hideDialog();
+                    }
+                });
+            });
+        });
+    },
+    closeCurrentWindow : function(){
+        $(".panel-tool-close").click();
     }
 };

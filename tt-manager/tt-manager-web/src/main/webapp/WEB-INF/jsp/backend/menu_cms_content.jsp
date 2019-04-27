@@ -68,13 +68,28 @@
                 iconCls: 'icon-add',
                 text: '新增',
                 handler: function () {
-                    alert('edit')
+                    var $tree = $("#contentCategoryTree");
+                    var selected = $tree.tree("getSelected");
+                    var isSelected = false;
+                    if (selected) {
+                        if ($tree.tree("isLeaf", selected.target)) {
+                            isSelected = true;
+                        }
+                    }
+                    if (isSelected) {
+                        TT.createWindow({
+                            // url:"backend/menu_goods_add"
+                            url: "backend/content_add"
+                        })
+                    } else {
+                        $.messager.alert('提示', '请选择内容分类项');
+                    }
                 }
             }, '-', {
                 iconCls: 'icon-edit',
                 text: '编辑',
                 handler: function () {
-                    alert('help')
+
                 }
             }, '-', {
                 iconCls: 'icon-cancel',

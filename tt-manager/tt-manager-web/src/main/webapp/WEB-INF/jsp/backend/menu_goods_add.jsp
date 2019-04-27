@@ -95,7 +95,7 @@
         //商品种类
         // TT.initItemCategory();
         //富文本编辑器
-        itemAddEditor = TT.createEditor();
+        itemAddEditor = TT.createEditor("#desc");
         // TT.initPictureUpload();
     });
 

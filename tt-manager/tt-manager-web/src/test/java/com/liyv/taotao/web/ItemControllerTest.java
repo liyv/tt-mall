@@ -7,6 +7,7 @@ import com.liyv.taotao.dto.EUDataGridDTO;
 import com.liyv.taotao.dto.ItemListDTO;
 import com.liyv.taotao.dto.TaoItemCatDTO;
 import com.liyv.taotao.entity.ContentCategoryEntity;
+import com.liyv.taotao.entity.ContentEntity;
 import com.liyv.taotao.entity.TaoItem;
 import com.liyv.taotao.entity.TaoItemParamEntity;
 import com.liyv.taotao.mapper.TaoItemParamMapper;
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -137,8 +139,52 @@ public class ItemControllerTest extends BaseTest {
      * 测试内容列表
      */
     @Test
-    public void listContent(){
+    public void listContent() {
         EUDataGridDTO dto = contentService.listContent(89, 1, 10);
         System.out.println(dto.getTotal());
+    }
+
+    /**
+     * 插入新的内容
+     */
+    @Test
+    public void saveContent() {
+        ContentEntity entity = new ContentEntity();
+        entity.setCategoryId(90);
+        entity.setTitle("贵州");
+        entity.setSubTitle("贵州日报");
+        entity.setTitleDesc("工作");
+        entity.setUrl("http://www.sina.com.cn");
+        entity.setPic("http://www.sina.com.cn");
+        entity.setPic2("http://www.sina.com.cn");
+        entity.setContent("去");
+        entity.setCreated(new Date());
+        entity.setUpdated(new Date());
+        int row = contentService.saveContent(entity);
+        System.out.println(row);
+    }
+
+    /**
+     * 更新内容
+     */
+    @Test
+    public void updateContent() {
+        ContentEntity entity = new ContentEntity();
+        entity.setId(32);
+        entity.setContent("去2");
+        int row = contentService.updateContent(entity);
+        System.out.println(row);
+    }
+
+    /**
+     * 删除内容
+     */
+    @Test
+    public void deleteContent() {
+        List<Long> ids = new ArrayList<>();
+        ids.add(33L);
+        ids.add(29L);
+        int row = contentService.deleteContent(ids);
+        System.out.println(row);
     }
 }
