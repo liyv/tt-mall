@@ -121,5 +121,17 @@ var TT = {
                 $("#" + formId + " .params").eq(1).children("td").eq(1).empty();
             }
         });
+    },
+    //格式化时间
+    formatDateTime: function (val, rowData, rowIndex) {
+        var date = new Date(val);
+        return date.toLocaleDateString("zh-CN");
+    },
+    //格式化链接
+    formatUrl:function (val,rowData,rowIndex) {
+        if (val){
+            return "<a href='"+val+"' target='_blank'>查看</a>";
+        }
+        return "";
     }
 };

@@ -1,9 +1,11 @@
 package com.liyv.taotao.web.backend;
 
+import com.liyv.taotao.dto.EUDataGridDTO;
 import com.liyv.taotao.dto.Result;
 import com.liyv.taotao.dto.TaoItemCatDTO;
 import com.liyv.taotao.entity.ContentCategoryEntity;
 import com.liyv.taotao.service.TaoContentCategoryService;
+import com.liyv.taotao.service.TaoContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ public class ContentController {
 
     @Autowired
     TaoContentCategoryService contentCategoryService;
+    @Autowired
+    TaoContentService contentService;
 
     @GetMapping("/categoryList")
     @ResponseBody
@@ -63,5 +67,14 @@ public class ContentController {
         } else {
             return new Result<>(false, "删除失败!");
         }
+    }
+
+    @GetMapping("/list")
+    @ResponseBody
+    public Result listContentByCategoryId(@RequestParam("categoryId") long categoryId,
+                                          @RequestParam(value = "page", defaultValue = "1") int page,
+                                          @RequestParam("rows") int rows) {
+        EUDataGridDTO dto = contentService.listContent(categoryId, page, rows);
+        return new Result<>(true, dto);
     }
 }

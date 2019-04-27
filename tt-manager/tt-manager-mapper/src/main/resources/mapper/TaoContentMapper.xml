@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyv.taotao.mapper.TaoContentMapper">
+
+    <select id="listContent" resultType="ContentEntity">
+        select id,title,sub_title,title_desc,url,pic,pic2,created,updated
+        from tb_content
+        where category_id=#{categoryId}
+        limit #{start},#{size}
+    </select>
+
+    <select id="countContent" resultType="int">
+        select count(*)
+        from tb_content
+        where category_id=#{categoryId}
+    </select>
+</mapper>

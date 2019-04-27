@@ -10,10 +10,7 @@ import com.liyv.taotao.entity.ContentCategoryEntity;
 import com.liyv.taotao.entity.TaoItem;
 import com.liyv.taotao.entity.TaoItemParamEntity;
 import com.liyv.taotao.mapper.TaoItemParamMapper;
-import com.liyv.taotao.service.ItemParamService;
-import com.liyv.taotao.service.ItemService;
-import com.liyv.taotao.service.TaoContentCategoryService;
-import com.liyv.taotao.service.TaoItemCatService;
+import com.liyv.taotao.service.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
@@ -32,6 +29,8 @@ public class ItemControllerTest extends BaseTest {
     ItemParamService paramService;
     @Autowired
     TaoContentCategoryService contentCategoryService;
+    @Autowired
+    TaoContentService contentService;
 
     /**
      * 测试查询商品列表
@@ -132,5 +131,14 @@ public class ItemControllerTest extends BaseTest {
         int id = 98;
         int row = contentCategoryService.deleteCategory(id);
         System.out.println(row);
+    }
+
+    /**
+     * 测试内容列表
+     */
+    @Test
+    public void listContent(){
+        EUDataGridDTO dto = contentService.listContent(89, 1, 10);
+        System.out.println(dto.getTotal());
     }
 }
