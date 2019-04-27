@@ -3,6 +3,7 @@ package com.liyv.taotao.web.backend;
 import com.liyv.taotao.service.UploadService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("upload")
 public class UploadController {
+
+    @Value("${IMAGE_BASE_URL}")
+    String IMAGE_BASE_URL;
 
     @Autowired
     UploadService service;
@@ -34,7 +38,9 @@ public class UploadController {
             map.put("message", "文件上传失败");
         } else {
             map.put("error", 0);
-            map.put("url", webPath + result);
+            String url = IMAGE_BASE_URL + webPath + result;
+            System.out.println(url);
+            map.put("url", url);
         }
         return map;
     }

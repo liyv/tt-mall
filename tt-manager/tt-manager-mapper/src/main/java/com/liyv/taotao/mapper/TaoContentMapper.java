@@ -1,5 +1,6 @@
 package com.liyv.taotao.mapper;
 
+import com.liyv.taotao.dto.content.ContentItemDTO;
 import com.liyv.taotao.entity.ContentEntity;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,4 +17,6 @@ public interface TaoContentMapper {
     public int updateContent(ContentEntity entity);
 
     public int deleteContent(List<Long> id);
+
+    public List<ContentItemDTO> listContentByCategoryId(long categoryId);
 }

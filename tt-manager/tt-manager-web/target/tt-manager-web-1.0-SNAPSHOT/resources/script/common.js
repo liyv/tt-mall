@@ -172,11 +172,13 @@ var TT = {
             KindEditor.editor(TT.kindEditorParams).loadPlugin('image', function() {
                 this.plugin.imageDialog({
                     showRemote : false,
-                    clickFn : function(url, title, width, height, border, align) {
+                    clickFn: function (url, title, width, height, border, align) {
                         var input = _self.siblings("input");
                         input.parent().find("img").remove();
                         input.val(url);
-                        input.after("<a href='"+url+"' target='_blank'><img src='"+url+"' width='80' height='50'/></a>");
+                        console.log(url);
+                        debugger;//todo
+                        input.after("<a href='" + url + "' target='_blank'><img src='" + url + "' width='80' height='50'/></a>");
                         this.hideDialog();
                     }
                 });

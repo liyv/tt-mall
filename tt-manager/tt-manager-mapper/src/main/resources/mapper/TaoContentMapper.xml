@@ -56,4 +56,11 @@
             #{item}
         </foreach>
     </delete>
+
+    <!--首页广告位-->
+    <select id="listContentByCategoryId" resultType="com.liyv.taotao.dto.content.ContentItemDTO">
+        select title,sub_title,title_desc,url,pic,pic2,content
+        from tb_content
+        where category_id=#{categoryId};
+    </select>
 </mapper>

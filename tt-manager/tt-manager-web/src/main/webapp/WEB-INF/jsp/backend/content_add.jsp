@@ -77,7 +77,6 @@
 
             $.post("/content/create",$("#contentAddForm").serialize(), function(res){
                 if(res.success){
-                    debugger;
                     TT.closeCurrentWindow();
                     $.messager.alert('提示','新增内容成功!');
                     $("#content_table").datagrid("reload");
