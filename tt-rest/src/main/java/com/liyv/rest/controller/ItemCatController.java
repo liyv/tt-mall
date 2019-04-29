@@ -20,19 +20,9 @@ public class ItemCatController {
     ItemCatService itemCatService;
 
     //
-    @GetMapping(value = "/itemcat/list",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/itemcat/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getItemCatListJson(String callback) {
-        CatResult catResult = itemCatService.getItemCatList();
-        //把pojo转换成字符串
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = "";
-        try {
-            json = objectMapper.writeValueAsString(catResult);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage(), e);
-        }
-        String result = callback + "(" + json + ");";
-        return result;
+        String json = itemCatService.getItemCatList();
+        return callback + "(" + json + ");";
     }
 }

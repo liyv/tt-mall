@@ -1,10 +1,17 @@
 package com.liyv.rest.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liyv.rest.service.RedisService;
 import com.liyv.taotao.dto.CatNode;
 import com.liyv.rest.pojo.CatResult;
 import com.liyv.rest.service.ItemCatService;
 import com.liyv.taotao.mapper.TaoItemCatMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,12 +19,28 @@ import java.util.List;
 
 @Service
 public class ItemCatServiceImpl implements ItemCatService {
-
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private TaoItemCatMapper itemCatMapper;
+    @Autowired
+    private RedisService redisService;
+
+    @Value("${INDEX_CATEGORY_REDIS_HASH}")
+    private String INDEX_CATEGORY_REDIS_HASH;
 
     @Override
-    public CatResult getItemCatList() {
+    public String getItemCatList() {
+
+        //从 Redis中读取缓存
+        try {
+            String val = redisService.hget(INDEX_CATEGORY_REDIS_HASH, "menu");
+            if (StringUtils.isNotEmpty(val)) {
+                return val;
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+
         List<?> nodeList = itemCatMapper.listCatList();//catnode 列表
         //遍历list.重新整理数据格式
 
@@ -44,7 +67,21 @@ public class ItemCatServiceImpl implements ItemCatService {
         modifyList(nodeList, true, leafList);
         CatResult result = new CatResult();
         result.setData(nodeList);
-        return result;
+        //把pojo转换成字符串
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = "";
+        try {
+            json = objectMapper.writeValueAsString(result);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+        }
+        try {
+            redisService.hset(INDEX_CATEGORY_REDIS_HASH, "menu", json);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return json;
     }
 
     //调整 list节点数据组织结构

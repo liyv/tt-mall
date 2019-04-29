@@ -16,6 +16,7 @@ public class IndexController {
     public String showIndex(Model model) {
         //取大广告位内容
         String data = contentService.getAdList();
+        System.out.println(data);
         model.addAttribute("ad1", data);
         return "index";
     }
