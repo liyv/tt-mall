@@ -1,6 +1,5 @@
 package com.liyv.rest.service.impl;
 
-import com.dyuproject.protostuff.runtime.RuntimeSchema;
 import com.liyv.rest.service.ContentService;
 import com.liyv.rest.service.RedisService;
 import com.liyv.taotao.dto.content.ContentItemDTO;
@@ -46,11 +45,21 @@ public class ContentServiceImpl implements ContentService {
         List<ContentItemDTO> result = taoContentMapper.listContentByCategoryId(categoryId);
         //存缓存
         try {
-            long id = redisService.hset(INDEX_CATEGORY_REDIS_HASH.getBytes(), ("banner" + categoryId).getBytes(),JsonUtils.obj2Byte(result));
+            long id = redisService.hset(INDEX_CATEGORY_REDIS_HASH.getBytes(), ("banner" + categoryId).getBytes(), JsonUtils.obj2Byte(result));
             System.out.println(id);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
         return result;
+    }
+
+    @Override
+    public long deleteRedisCache(long categoryId) {
+        try {
+            long id= redisService.hDel(INDEX_CATEGORY_REDIS_HASH.getBytes(), ("banner" + categoryId).getBytes());
+            return id;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 }

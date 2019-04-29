@@ -7,4 +7,6 @@ import java.util.List;
 public interface ContentService {
 
     public List<ContentItemDTO> getContentListByCategory(long categoryId);
+
+    public long deleteRedisCache(long categoryId);
 }

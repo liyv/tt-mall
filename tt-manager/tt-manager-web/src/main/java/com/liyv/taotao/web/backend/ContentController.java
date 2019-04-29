@@ -112,10 +112,17 @@ public class ContentController {
         }
     }
 
+    /**
+     * @param ids
+     * @param categoryId 用于删除Redis 缓存
+     * @return
+     */
     @PostMapping("/delete")
     @ResponseBody
-    public Result deleteContent(List<Long> ids) {
-        int row = contentService.deleteContent(ids);
+    public Result deleteContent(@RequestParam("ids[]") List<Long> ids, @RequestParam("categoryId") long categoryId) {
+        int row = contentService.deleteContent(ids, categoryId);
+//        System.out.println(ids);
+//        int row = -1;
         if (row > 0) {
             return new Result<>(true, row);
         } else {

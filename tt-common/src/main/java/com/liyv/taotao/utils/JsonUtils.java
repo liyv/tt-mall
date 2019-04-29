@@ -34,23 +34,24 @@ public class JsonUtils {
         return null;
     }
 
-    public static <T> List<T> byte2List(byte[] bytes, Class<T> beanType) {
+    public static <T> List<T> byte2List(byte[] bytes, Class<T> beanType) throws Exception{
         JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
         try {
             List<T> list = MAPPER.readValue(bytes, javaType);
             return list;
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
-    public static byte[] obj2Byte(Object obj) {
+    public static byte[] obj2Byte(Object obj) throws Exception{
         try {
             return MAPPER.writeValueAsBytes(obj);
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
-        return null;
+
     }
 }

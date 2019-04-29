@@ -5,7 +5,7 @@
 <mapper namespace="com.liyv.taotao.mapper.TaoContentMapper">
 
     <select id="listContent" resultType="ContentEntity">
-        select id,title,sub_title,title_desc,url,pic,pic2,created,updated
+        select id,category_id,title,sub_title,title_desc,url,pic,pic2,created,updated
         from tb_content
         where category_id=#{categoryId}
         limit #{start},#{size}
@@ -52,8 +52,8 @@
     <delete id="deleteContent">
         delete from tb_content
         where id in
-        <foreach collection="list" open="(" close=")" separator="," item="item">
-            #{item}
+        <foreach collection="list" index="index" open="(" close=")" separator="," item="id">
+            #{id,jdbcType=BIGINT}
         </foreach>
     </delete>
 

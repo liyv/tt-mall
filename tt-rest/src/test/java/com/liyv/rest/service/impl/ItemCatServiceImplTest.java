@@ -45,6 +45,11 @@ public class ItemCatServiceImplTest extends BaseTest {
         System.out.println(key1);
     }
 
+    @Test
+    public void testSyncCache(){
+
+    }
+
     /**
      * 集群版
      */

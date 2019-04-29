@@ -184,7 +184,7 @@ public class ItemControllerTest extends BaseTest {
         List<Long> ids = new ArrayList<>();
         ids.add(33L);
         ids.add(29L);
-        int row = contentService.deleteContent(ids);
+        int row = contentService.deleteContent(ids, 89);
         System.out.println(row);
     }
 }

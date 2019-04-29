@@ -52,6 +52,7 @@
             method: 'get',
             columns: [[
                 {field: 'id', title: 'Code', width: 100, hidden: true},
+                {field: 'categoryId', title: 'Code', width: 100, hidden: true},
                 {field: '', title: '全选', align: 'center', checkbox: true},
                 {field: 'title', title: '内容标题', width: 120, align: 'center'},
                 {field: 'subTitle', title: '内容子标题', width: 100, align: 'center'},
@@ -89,13 +90,55 @@
                 iconCls: 'icon-edit',
                 text: '编辑',
                 handler: function () {
+                    var ids = TT.getDataGridSelectedRow("#content_table");
+                    if (ids.length == 0) {
+                        $.messager.alert("提示", "请选择一项内容");
+                        return;
+                    }
+                    if (ids.length > 1) {
+                        $.messager.alert("提示", "请只选择一项内容");
+                        return;
+                    }
+                    TT.createWindow({
+                        url: 'backend/content_edit',
+                        onLoad: function () {
+                            var data = $("#content_table").datagrid("getSelections")[0];
+                            $("#contentEditForm").form("load", data);
 
+                            // 实现图片
+                            if (data.pic) {
+                                $("#contentEditForm [name=pic]").after("<a href='" + data.pic + "' target='_blank'><img src='" + data.pic + "' width='80' height='50'/></a>");
+                            }
+                            if (data.pic2) {
+                                $("#contentEditForm [name=pic2]").after("<a href='" + data.pic2 + "' target='_blank'><img src='" + data.pic2 + "' width='80' height='50'/></a>");
+                            }
+
+                            contentAddEditor.html(data.content);
+                        }
+                    })
                 }
             }, '-', {
                 iconCls: 'icon-cancel',
                 text: '删除',
                 handler: function () {
-                    alert('help')
+                    var ids = TT.getDataGridSelectedRow("#content_table");
+                    if (ids.length == 0) {
+                        $.messager.alert("提示", "请选择一项内容");
+                        return;
+                    }
+                    var categoryId= $("#content_table").datagrid("getSelections")[0].categoryId;
+                    $.messager.confirm("删除", "您确定删除这些数据吗?", function (r) {
+                        if (r) {
+                            $.post("content/delete", {'ids': ids,'categoryId':categoryId}, function (res) {
+                                if (res.success){
+                                    $.messager.alert("提示","删除完成!");
+                                    $("#content_table").datagrid("reload");
+                                } else {
+                                    $.messager.alert("提示","删除失败!");
+                                }
+                            })
+                        }
+                    })
                 }
             }],
             rownumbers: true

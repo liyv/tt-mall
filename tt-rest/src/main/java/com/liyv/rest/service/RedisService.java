@@ -18,6 +18,8 @@ public interface RedisService {
 
     public long hDel(String hash, String key);
 
+    public long hDel(byte[] hashs, byte[] keys);
+
     public long del(String key);
 
     public long ttl(String key);

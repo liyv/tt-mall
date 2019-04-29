@@ -177,7 +177,6 @@ var TT = {
                         input.parent().find("img").remove();
                         input.val(url);
                         console.log(url);
-                        debugger;//todo
                         input.after("<a href='" + url + "' target='_blank'><img src='" + url + "' width='80' height='50'/></a>");
                         this.hideDialog();
                     }
@@ -187,5 +186,18 @@ var TT = {
     },
     closeCurrentWindow : function(){
         $(".panel-tool-close").click();
+    },
+    //返回选中行的Id
+    getDataGridSelectedRow:function (selector) {
+        var $datagrid=$(selector);
+        // var rows = $datagrid.datagrid("getChecked");
+        //数组,包含这一行的数据
+        var rows = $datagrid.datagrid("getSelections");
+        var ids=[];
+        for (var i in rows) {
+            ids.push(rows[i].id);
+        }
+        return ids;
+        console.log(ids);
     }
 };

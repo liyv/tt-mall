@@ -13,5 +13,5 @@ public interface TaoContentService {
 
     public int updateContent(ContentEntity entity);
 
-    public int deleteContent(List<Long> id);
+    public int deleteContent(List<Long> id,long categoryId);
 }

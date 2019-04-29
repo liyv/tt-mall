@@ -138,6 +138,21 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
+    public long hDel(byte[] hashs, byte[] keys) {
+        try {
+            Jedis jedis = jedisPool.getResource();
+            try {
+                return jedis.hdel(hashs, keys);
+            } finally {
+                jedis.close();
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    @Override
     public long del(String key) {
         try {
             Jedis jedis = jedisPool.getResource();

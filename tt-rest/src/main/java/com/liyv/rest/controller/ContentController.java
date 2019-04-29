@@ -30,4 +30,13 @@ public class ContentController {
             return new Result<>(false, e.getMessage());
         }
     }
+
+    @GetMapping("delete/{categoryId}")
+    public Result deleteCategory(@PathVariable("categoryId") long categoryId) {
+        long delResult = contentService.deleteRedisCache(categoryId);
+        if (delResult > 0) {
+            return new Result<>(true, delResult);
+        }
+        return new Result<>(false, "删除失败");
+    }
 }

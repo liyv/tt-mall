@@ -2,6 +2,7 @@ package com.liyv.taotao.dto;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.List;
 
@@ -69,5 +70,9 @@ public class Result<T> {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static Result format(String jsonData) throws Exception {
+        return MAPPER.readValue(jsonData, Result.class);
     }
 }
