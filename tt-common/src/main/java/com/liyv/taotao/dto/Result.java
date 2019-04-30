@@ -75,4 +75,30 @@ public class Result<T> {
     public static Result format(String jsonData) throws Exception {
         return MAPPER.readValue(jsonData, Result.class);
     }
+
+    public static Result formatToPojo(String jsonData, Class<?> clazz) {
+        try {
+            if (clazz == null) {
+                return MAPPER.readValue(jsonData, Result.class);
+            }
+            JsonNode jsonNode = MAPPER.readTree(jsonData);
+            JsonNode data = jsonNode.get("data");
+            Object obj = null;
+            if (clazz != null) {
+                if (data.isObject()) {
+                    obj = MAPPER.readValue(data.traverse(), clazz);
+                } else if (data.isTextual()) {
+                    obj = MAPPER.readValue(data.asText(), clazz);
+                }
+            }
+            boolean success = jsonNode.get("success").asBoolean();
+            if (success) {
+                return new Result<>(success, obj);
+            } else {
+                return new Result<>(false, jsonNode.get("errorMessage"));
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

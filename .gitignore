@@ -23,6 +23,7 @@ tt-rest/target
 tt-manager/tt-manager-mapper/target
 tt-manager/tt-manager-service/target
 tt-common/target
+tt-search/target
 
 ### NetBeans ###
 /nbproject/private/
