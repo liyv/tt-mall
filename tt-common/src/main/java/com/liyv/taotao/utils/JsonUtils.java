@@ -23,6 +23,15 @@ public class JsonUtils {
         return null;
     }
 
+    public static <T> T json2Obj(String json, Class<T> clazz) {
+        try {
+            return MAPPER.readValue(json, clazz);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static <T> List<T> jsonToList(String jsonData, Class<T> beanType) {
         JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
         try {
@@ -34,7 +43,7 @@ public class JsonUtils {
         return null;
     }
 
-    public static <T> List<T> byte2List(byte[] bytes, Class<T> beanType) throws Exception{
+    public static <T> List<T> byte2List(byte[] bytes, Class<T> beanType) throws Exception {
         JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
         try {
             List<T> list = MAPPER.readValue(bytes, javaType);
@@ -45,7 +54,7 @@ public class JsonUtils {
         }
     }
 
-    public static byte[] obj2Byte(Object obj) throws Exception{
+    public static byte[] obj2Byte(Object obj) throws Exception {
         try {
             return MAPPER.writeValueAsBytes(obj);
         } catch (Exception e) {

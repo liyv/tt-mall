@@ -32,7 +32,7 @@ public class ContentServiceImpl implements ContentService {
     public String getAdList() {
         //调用服务层获取数据
         String url = REST_BASE_URL + REST_CONTENT_URL + REST_CONTENT_AD_CID;
-        System.out.println(url);
+//        System.out.println(url);
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder().url(url).get().build();
         try (Response response = httpClient.newCall(request).execute()) {
